@@ -1,0 +1,22 @@
+---
+title: "01_Abstract"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
+---
+
+```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = FALSE}
+```
+
+Since the inception of the Olympic games in 1896 humans have been on a pursuit to push their minds bodies and souls to become the best of the best. They inspire the next generation to have pride not only in themselves but in their Country. 
+
+In its inception there were a small subset of sports that the competition would occur and these can be found on the left side of Table \@ref(tab:SummerWinners). Over the years the competition occurred every four years with more nations appearing and a more diverse range of sports being included. With that there are more opportunities for athletes to compete for the glory of a medal.
+
+As a nation, it would be nice to consider a balance where a small number of athletes could be sent whilst maximizing the haul of Olympic medals.
+
+This report aims to look at some of the past results of the games in terms of events and medals to determine if there is any clear evidence to support reducing the number of athletes, but maintaining or improving the number of medals that can be procured.

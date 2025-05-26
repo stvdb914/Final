@@ -1,0 +1,45 @@
+---
+title: "06_DataDescription"
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output:
+  pdf_document
+ 
+editor_options: 
+  chunk_output_type: console
+bibliography: DSAA811.bib
+link-citations: TRUE
+citation_package: apa-annotated.csl
+---
+
+```{r child = '00_loader.Rmd' , eval = FALSE}
+```
+
+The [@bansal_2021_olympics_] data set called "Olympics\_" was compiled by "Harsh Bansal" and was last updated 4 years ago. The dataset was uploaded and sourced from Kaggle [@keating_2025_kaggle]. According to the site, there is only one owner with no DOI Citation, provenance or license. The restriction on the data is placed on it by Kaggle by way of citation of the owner "Harsh Bansal". I am using this data at my own risk as it has not been authenticated or carefully curated.
+
+The dataset contains 4 files, "athlete_events_data_dictionary.csv" contains `r dim(athletes)[1]` observations of `r dim(athletes)[2]` variables, "country_definitions.csv" contains `r dim(countryDef)[1]` observations of `r dim(countryDef)[2]` variables, "country_definitions_data_dictionary.csv" contains `r dim(countryDefdd)[1]`  observations of `r dim(countryDefdd)[2]` variables, and "athlete_events.csv" containing `r prettyNum(dim(events)[1], big.mark=",", scientific = FALSE)` observations of `r dim(events)[2]` variables.
+
+The "athlete_events.csv" file contains all athlete information of all the Olympic games dating from 1896 summer games and 1924 winter games up to and including the 2016 summer Olympic games. The following table outlines the variables contained within the set.
+
+```{r demo, echo = FALSE}
+  athletes %>% 
+    kable("pipe") %>% 
+    kable_styling(latex_options = "HOLD_position", full_width = F)
+```
+
+The research will center around the ID, NOC, Season, Year, Sport and Medals. I am trying to work out if sending more athletes equates to more medals. If I can isolate what year there is differences in the medal tally for some countries we can pinpoint what if anything was occurring in that country at the time. This may give insight to the specific number of athletes required to send to the games to capitalize on medals.
+
+In the athletes table there is a field called NOC which is the National Olympic City code that links to the country definitions that will allow for better groupings of data by country when linked to each other.
+
+To represent the data on a world map I needed to obtain another data set of data that contained the longitude and latitude. This data set was obtained from [@a262588213843476_2021_countries] and contained one file, "country-coord.csv". It was sourced from Github and returned to Tadas Tamošauskas who provided the data set for cleaning. The set is experimental, but provides enough information to roughly plot the Olympic data on a map. It contains six variables. The three that are needed to plot the data points are Alpha-3 code that allows you to link to the NOC codes, latitude (average), and longitude (average). With this data we can obtain an image of what countries have competed in an Olympic games as seen in Figure \@ref(fig:OlympicAll)
+
+```{r OlympicAll, fig.asp = 0.8, fig.show="hold", fig.cap="Mapping the NOC codes to longitude and latitude points on the world map", warnings = FALSE, echo = FALSE}
+  drawMap("", "All Countries that have competed at an olympic games")
+```
+
+Whilst working with this data set, and considering the questions that are being asked. The categories that are most relevant in this data set are all categorical variables, that are quantified with counts to extrapolate unique athlete ID's, or Team members, to counts of medals in all categories, gold, silver, bronze or no medal awarded. For this reason I have factored all the categorical data for ease of use.
+
+In the next section I take a look at some of the tables and figures that can answer the questions that arose in Research Questions which will guide any conclusions that I come up with to answer them.

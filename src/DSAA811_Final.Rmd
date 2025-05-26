@@ -1,0 +1,132 @@
+---
+title: 'Assignment 3 - Final Report'
+subtitle: 'Setting the environment'
+author: 
+  - Sharon Van Den Berg 9251936 (stvdb914@uowmail.edu.au) 
+  - School of Mathematics and Applied Statistics
+date: "`r format(Sys.time(), '%d %B, %Y \n')`"
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../report",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  #html_document:
+  bookdown::pdf_document2: 
+     keep_tex: true
+     number_sections: true
+     toc: false
+geometry: margin= 2.00cm
+font-size: 11pt
+font-style: "Serif"
+line-spacing: 1.5
+header-includes:
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=6in,height=5in]{../images/UOW.png}\LARGE\\}
+  - \posttitle{\end{center}}
+  - \usepackage{setspace}
+  - \onehalfspacing
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \lhead{\fontsize{11pt}{11pt}\selectfont "Times New Roman"}
+  - \fancyhead[L]{\fontsize{11}{11}\selectfont STAT950/STAT250 ASSESSMENT 03 - Sharon Van Den Berg 9251936}
+  - \fancyhead[R]{}
+  - \lfoot{\fontsize{11pt}{11pt}\selectfont "Serif"}
+  - \fancyfoot[C]{\thepage}
+  - \fancyfoot[L]{}
+  - \usepackage{pdflscape}
+  - \newcommand{\blandscape}{\begin{landscape}}
+  - \newcommand{\elandscape}{\end{landscape}}
+documentclass: article
+editor_options: 
+  chunk_output_type: console
+bibliography: DSAA811.bib
+link-citations: TRUE
+citation_package: apa-annotated.csl
+---
+
+**DECLARATION**
+	No part of this Assignment has been copied from anyone else, and I have not lent any part of it to anyone else. No part of this assignment has been written by generative AI.
+
+```{=tex}
+	\vspace*{2em}\noindent
+	\hfill%
+	\begin{tabular}[t]{c}
+		\includegraphics[width=3cm]{../images/Sharon.png} \\
+		\rule{10em}{0.5pt}\\ Sharon Van Den Berg (9251936)
+	\end{tabular}%
+	\hfill%
+	\begin{tabular}[t]{c}
+		\today \\
+		\rule{10em}{0.4pt}\\ Date
+	\end{tabular}
+```
+
+[This report was made using R Markdown as a project linking to my Git account](https://github.com/stvdb914/DSAA811-Final-Report "Git Repository")
+
+```{r child = './src/00_loader.Rmd' , eval = TRUE}
+```
+
+\newpage
+# Abstract {-}
+```{r child = './src/01_Abstract.Rmd'}
+```
+
+\newpage
+\tableofcontents
+
+# Glossary {-}
+```{r Glossary, include = TRUE, echo = FALSE}
+  options(knitr.kable.NA = '')
+
+    glossaryDef %>% 
+    knitr::kable("pipe", 
+                 booktabs = TRUE) %>% 
+    kable_styling(latex_options = "striped", position = "left") %>% 
+      column_spec(1, bold = TRUE)
+```
+
+\newpage
+# Introduction {-}
+
+```{r child = './src/02_Introduction.Rmd'}
+```
+
+\newpage
+# Background {-}
+```{r child = './src/03_Background.Rmd'}
+```
+
+\newpage
+# Research questions and aims of the project {-}
+```{r child = './src/04_ResearchQuestions.Rmd'}
+```
+
+# Rationale {-}
+```{r child = './src/05_Rational.Rmd'}
+```
+
+\newpage
+# Data Description {-}
+```{r child = './src/06_DataDescription.Rmd'}
+```
+
+\newpage
+# Exploritory data analysis {-}
+```{r child = './src/07_Exploritory.Rmd'}
+```
+
+\newpage
+# Conclusion / Discussion {-}
+```{r child = './src/08_Conclude.Rmd'}
+```
+
+\newpage
+#Session Information {-}
+```{r sessionInfo}
+sessionInfo()
+```
+
+\newpage
+# Bibliography {-}

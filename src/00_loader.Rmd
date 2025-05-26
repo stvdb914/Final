@@ -1,0 +1,70 @@
+---
+title: "00_loader"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
+  #pdf_document
+---
+
+```{r libraryLoader, include=FALSE}
+library(knitr)
+library(tinytex)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(forcats)
+library(lme4)
+library(lmerTest)
+library(sf)
+library(kableExtra)
+library(sjmisc)
+library(maps)
+library(magrittr)
+```
+
+```{r ChunkOpts, include = TRUE, echo = FALSE}
+  opts_chunk$set(echo = TRUE)
+
+  theme_set(theme_bw(base_family = "serif"))
+```
+
+```{r, include=FALSE}
+options(tinytex.verbose = TRUE)
+source("./src/functions.R", local = knitr::knit_global())
+```
+
+```{r dataWrangler, include = TRUE, echo = FALSE}
+#Read in the 4 csv files
+athletes <- read.csv('./data/athlete_events_data_dictionary.csv', header = TRUE)
+events <- read.csv('./data/athlete_events.csv', header = TRUE)
+countryDefdd <- read.csv('./data/country_definitions_data_dictionary.csv',header = TRUE)
+countryDef <- read.csv('./data/country_definitions.csv',header = TRUE)
+locations <- read.csv('./data/country-coord.csv', header = TRUE)
+
+events$Sex <- factor(events$Sex,
+                     levels = c("M", "F"),
+                     labels = c("Male", "Female"))
+
+events$NOC <- as.factor(events$NOC)
+
+events$Season <- factor(events$Season,
+                        levels = c("Summer", "Winter"),
+                        labels = c("Summer", "Winter"))
+
+events$Medal <- factor(events$Medal,
+                          levels = c("Gold", "Silver", "Bronze"),
+                          labels = c("Gold", "Silver", "Bronze"),
+                          ordered = TRUE)
+```
+
+```{r glossaryMaker, include = TRUE, echo = FALSE}
+glossaryDef <- data.frame(Acronym = character(), Definition = character())
+glossaryDef <- add_row(glossaryDef, Acronym = "NOC", Definition = "National Olympic Committee")
+```
+

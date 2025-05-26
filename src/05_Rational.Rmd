@@ -1,0 +1,23 @@
+---
+title: "05_Rational"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
+---
+
+
+```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = FALSE}
+```
+
+It is no real stretch to underestimate the importance of pride that can come from winning many medals at an Olympic games. From the eyes of the country the cost to participate can be exorbitant to send one athlete, let alone an entire team of athletes. The rational for this project is to maximize the number of medals that a country can win, whilst reducing the costs of sending athletes to perform on this stage. I am looking for the optimal number of competing athletes to maximize the gold. In order to look into this problem, we can use past results in order to predict the future. 
+
+Using the data from the past we can look for trends specific to our country (or team), and across sports. We can get insights regarding the number of events that we enter to see if this is proportionate to the number of medals we can expect regarding to the team or sport. Furthermore we can get insights regarding sports with waning interests or declining numbers and vice-versa.
+
+Getting a dossier of this information, a nation will be well equipped to send the appropriate team numbers to the next games, confidently reducing travel and stay costs for the athlete, whilst still able to procure the most medals possible. This is a win for the athletes and the country pride that is associated with a win on a global stage.
+
+In the next section we take a look into the data descriptions, and how the data was obtained. 

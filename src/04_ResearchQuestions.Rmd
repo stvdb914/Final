@@ -1,0 +1,27 @@
+---
+title: "04_ResearchQuestions"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
+---
+
+```{r child = '00_loader.Rmd', Include = TRUE, eval = FALSE}
+```
+
+
+With most of the data from all the Olympic data since its inception. The main questions we need to ask is 
+
+*1) Have the events of the Olympics stayed the same? What way are they different today as apposed to the inception date?*
+
+*2) Is the number of medals obtained proportionate to the number of athletes? Can we send one athlete and have them obtain twice as many medals in events as an individual athlete? Is the number of athletes on a team proportionate to the number of medals that the team can win?*
+
+*3) What are the sports that have the most events and as such the highest potential to win a medal? Has this always been the case? What are the future predictions for medal obtainment moving into the next Olympic games in both Summer and Winter Olympics?*
+
+This report attempts to answer all the above questions in an attempt to select the optimum number of athletes, either per team or per sport to send to the Olympics to maximize the return on the number of medals obtained. 
+
+In the next section I took a look at the rational behind why this investigation is important.

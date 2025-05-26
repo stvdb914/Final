@@ -1,0 +1,170 @@
+---
+title: "07_Exploritory"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  bookdown::pdf_document2
+
+header-includes:
+  - \usepackage{pdflscape}
+  - \newcommand{\blandscape}{\begin{landscape}}
+  - \newcommand{\elandscape}{\end{landscape}}
+---
+
+```{r child = '00_loader.Rmd', Include = TRUE, eval = FALSE}
+```
+
+When loading in the data I have determined from the events table, the variables ID, Team, NOC, Season, Sport, and Medals are all factor variables and needed to be coded this way in R. These are the variables that the investigation is centered around.
+
+Every line in the data set represents an event. It contains all the athlete competitors if they win or not. Therefor to get quantifiable data I need to use counts to gather a lot of my numerical data. 
+
+Looking into *1) Have the events of the Olympics stayed the same? What way are they different today as apposed to the inception date?* I begin with a specific year of an Olympic games. Table \@ref(tab:SummerWinners) takes a look at the number of medals available for the inception data of the summer Olympics in 1896 as apposed to the last summer games in the data set of 2016. On the left side we can see that there are only 9 sports, and 143 medals. This is correct to the reported data mentioned in [@a2020_olympic]. On the right side we can see that in 2016 there are now a lot more sports on offer, over 30 types. Interestingly all the sports that existed in the summer games in 1896 are still being represented in the Summer Olympic Games in 2016.
+
+A similar story can be said about the winter Olympics when looking at Table \@ref(tab:WinterWinners). In 1924, on the left side there are ten sports. On the right there are fifteen sports being competed in in 2014. There are some sports that are no longer competed in from the 1924 such as Military Ski Patrol. 
+
+Whilst there are a lot more medals on offer in the later Olympics, the dynamic of the Olympics has changed dramatically through the years. This poses a problem with the investigation because there are now new sports that were not even conceived in the early games. Even though there are new sporting events there is no evidence as to how many athletes we should send to capitalise on the medals.
+
+```{r summerTables, warning = FALSE, echo = FALSE}
+summer1 <- MedalWinners("Summer", 1896)
+summer2 <- MedalWinners("Summer", 2016)
+
+list(summer1,summer2) %>% 
+  kableExtra::kable("latex", position = "H",  booktabs = T,
+         label = "SummerWinners",
+         caption = "Number of medal winners in 1896 versus 2016 Summer Olympic Games") %>% 
+         kable_styling(latex_options = "striped")
+```
+\newpage
+
+```{r winterTables, warning=FALSE, echo = FALSE}
+
+winter1 <- MedalWinners("Winter", 1924)
+winter2 <- MedalWinners("Winter", 2014)
+
+list(winter1,winter2) %>% 
+  knitr::kable("latex", position = "H",  booktabs = T, caption = "Number of medal winners in 1924 versus 2014 Winter Olympic Games",
+         label = "WinterWinners") %>%  
+         kable_styling(latex_options = "striped")
+```
+
+\newpage
+Further to knowing how many events are competed in each sport, we can get a breakdown of the medal tally as seen in Table \@ref(tab:SummerBreakDownWinners1). In this table we can see the number of Gold, Silver and Bronze medals that are awarded to each team for the Summer Olympics in 1986. We can also see how many events each team participated. Similarly we can perform the same query and compare the tables for the Olympics in 2016 for the top 30 teams in \@ref(tab:SummerBreakDownWinners2). The main difference in these two tables is that as the years progressed there are now more teams engaging in the endevour to win medals.
+
+```{r summerBreaks, warning = FALSE, echo = FALSE}
+summer1 <- MedalBreakDownByTeam("Summer", 1896) %>% select(Team, Gold, Silver, Bronze, Events = TotalEvents, Medals = TotalMedals)
+
+summer1 %>% 
+  kableExtra::kable("latex", position = "H",  booktabs = T,
+         label = "SummerBreakDownWinners1",
+         caption = "Medal allocation for 1896 Summer Olympic Games",) %>% 
+         kable_styling(latex_options = "striped", font_size = 7)
+```
+
+\newpage
+
+```{r summerBreaks2, warning = FALSE, echo = FALSE}
+summer2 <- head(MedalBreakDownByTeam("Summer", 2016), 30) %>% select(Team, Gold, Silver, Bronze, Events = TotalEvents, Medals = TotalMedals)
+
+summer2 %>% 
+  kableExtra::kable("latex", position = "H",  booktabs = T,
+         label = "SummerBreakDownWinners2",
+         caption = "Medal allocation for 2016 Summer Olympic Games for the top 30 teams",) %>% 
+         kable_styling(latex_options = "striped", font_size = 7)
+```
+
+Similarly, we can view the breakdown of medals per team for the Winter Olympics in 1924 in \@ref(tab:WinterBreakDownWinners1) and for the top 30 teams in the 2014 winter Olympics \@ref(tab:WinterBreakDownWinners2).
+
+On closer observations we can see that in 1896 Summer Olympics Egypt participated in 140 events and this translated to 44 medals. Of that 10 were gold, 16 were silver and 18 were bronze. Whereas in the same year Sweeden entered 5 events but did not win any medals. Seeing that there are an increasing variety of sports and events makes making a decision regarding the optimal athletes difficult to discern. Seeing the proportions of events entered as apposed to the take home medals leads me to the leads to the next question, *2) Is the number of medals obtained proportionate to the number of athletes? Can we send one athlete and have them obtain twice as many medals in events as an individual athlete? Is the number of athletes on a team proportionate to the number of medals that the team can win?*
+
+\newpage
+
+```{r winterBreaks1, fig.show="hold",  warning=FALSE, echo = FALSE}
+
+winter1 <- MedalBreakDownByTeam("Winter", 1924)
+
+winter1 %>% 
+  kableExtra::kable("latex", position = "H",  booktabs = T,
+         label = "WinterBreakDownWinners1",
+         caption = "Medal allocation for 1924 Winter Olympic Games",) %>% 
+         kable_styling(latex_options = "striped", font_size = 7)
+```
+
+```{r winterBreaks2, fig.show="hold", warning=FALSE, echo = FALSE}
+
+winter2 <- head(MedalBreakDownByTeam("Winter", 2014),30)
+
+winter2 %>% 
+  kableExtra::kable("latex", position = "H",  booktabs = T,
+         label = "WinterBreakDownWinners2",
+         caption = "Medal allocation for 2014 Winter Olympic Games for the top 30 teams",) %>% 
+         kable_styling(latex_options = "striped", font_size = 7)
+```
+
+\newpage
+
+Taking a look at the Figure \@ref(fig:medalProp) alongside the Table \@ref(tab:SummerBreakDownWinners1) we can see the proportion of medals won in comparison to the number of events the team entered in. We can see that Greece has had a 7% turn around of all events entered that brought in the gold medal, whereas 69% of the time they come up empty handed. Australia brought home the gold in 50% of the events that they entered. Sweeden, Italy, Greece-3 and Greece 2 did not win any of the events that they entered. Great Britain/Germany won the gold medal in every event entered. Figure \@ref(fig:medalProp1) staggers the bar chart and neither of these graphs are easy to read. Both, however highlight a quick reference showing that the more events participated in does not lead to more medals.
+
+```{r medalProp, fig.width = 10, fig.label = "propTWinners", fig.cap= "Proportion of medals in relation to the events entered by teams in the Summer 1896 Olympics", warning = FALSE, echo = FALSE}
+  
+  PropTeamWinners("Summer", 1896, "Fill", -1)
+```
+
+```{r medalProp1, fig.width = 10, fig.height = 5, fig.cap= "Proportion of medals in relation to the events entered by teams in the Summer 1896 Olympics", warning = FALSE, echo = FALSE}
+
+  PropTeamWinners("Summer", 1896, "Dodge", -1)
+```
+
+Similarly we can examine the results for the Winter olympics. In Figure \@ref(fig:medalProp3) and following Table \@ref(tab:WinterBreakDownWinners1) we can see that Great Brittain won the most medals with 27 out of the 38 events. This means that 29% of the events did not medal. 42% of their events medalled with a gold. Australia and Nepal won all their events gaining gold. Figure \@ref(fig:medalProp4) stacks these proportions side by side. 
+
+The problem I am facing with these proportions is that there is no information regarding the actual team sizes. In the dataset we can use the athletes ID to calculate how many people are in each team. This will allow you to determine if sending less people but having them participate in multiple events, increases or decreases the number of medals that can be brought home from an Olympics.
+
+```{r medalProp3, fig.width = 10, fig.cap= "Proportion of medals in relation to the events entered by teams in the Winter 1924 Olympics for the top 17 teams", warning = FALSE, echo = FALSE}
+  
+  PropTeamWinners("Winter", 1924, "Fill", 17)
+  
+```
+
+```{r medalProp4, fig.width = 10, fig.height = 7, fig.cap= "Proportion of medals in relation to the events entered by teams in the Winter 1924 Olympics for the top 17 teams", warning = FALSE, echo = FALSE}
+
+  PropTeamWinners("Winter", 1924, "Dodge", 17)
+  
+```
+
+Sticking to the the Summer Olympics in 1896. Table \@ref(tab:SummerBreakDownWinners3) tells us the number of athletes that were sent by each team. Greecce sent 101 athletes, whereas Sweeden, Australia, and Italy sent only 1 person. Germany sent 19 athletes, however they recieved 24 gold medals, more than those members on the team. Visually using Figure \@ref(fig:medalPropAth), it is easy to see that Sweeden had a 500% sucess rate of winning no medals. In other terms, there were 5 events that were entered where no-one on the team won. Australia had a 200% success rate meaning that every athlete on the team brought home 2 gold medals. Removing the numbers from the bars and comparing these figures with that of \@ref(tab:SummerBreakDownWinners3) we can see very similar trends. There is no evidence to suggest sending less athletes brings home any more or any less medals.
+
+```{r summerBreaksrevisit, warning = FALSE, echo = FALSE}
+summer1 <- left_join(MedalBreakDownByTeam("Summer", 1896), 
+                        AthletesPerCountry("Summer", 1896), 
+                        join_by(Team)) %>% 
+    arrange(desc(TotalMedals)) %>%  select(Team, Gold, Silver, Bronze, Events = TotalEvents, AthletesSent)
+
+summer1 %>% 
+  kableExtra::kable("latex", position = "H",  booktabs = T,
+         label = "SummerBreakDownWinners3",
+         caption = "Medal allocation for 1896 Summer Olympic Games",) %>% 
+         kable_styling(latex_options = "striped", font_size = 7)
+```
+
+```{r medalPropAth, fig.width = 10, fig.cap = "Proportion of medals in relation to the number of athletes entered by teams in the Summer 1896 Olympics", warning = FALSE, echo = FALSE}
+  
+  PropTeamAthleteWinners("Summer", 1896, "Fill", 30)
+```
+
+Finally, I explore the last question of the research *3) What are the sports that have the most events and as such the highest potential to win a medal? Has this always been the case? What are the future predictions for medal obtainment moving into the next Olympic games in both Summer and Winter Olympics?*
+
+Figure \@ref(fig:SportTrends) takes a sample of 16 Olympic events from the summer games. This plot shows the trend lines for the number of competitors that competed in each year of the olympics in those selected sports. Ruling and governing bodies such as the NOC are in charge of keeping the competition fair, and as such govern the numbers of athletes competing. We can tell from this plot that there is an increasing number of athletes that are participating in Athletics. Gymnastics showed a major increase but has taken a downward turn in athletes to now having steady numbers. There is no evidence to suggest specialising in one type of sport over another increases you chance to be selected to participate or even bring home the covenant medals.
+
+```{r SportTrends, fig.width = 12, fig.height = 12, fig.cap = "Trend lines of Summer Olympic sport event numbers since 1896", warning = FALSE, echo = FALSE}
+  sportTotals()
+```
+
+
+
+
+
+
+

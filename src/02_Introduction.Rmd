@@ -1,0 +1,23 @@
+---
+title: "02_Introduction"
+
+knit: (function(input, encoding) {
+  rmarkdown::render(input,
+                    encoding = "UTF-8",
+                    output_dir = "../html",
+                    knit_root_dir = rprojroot::find_rstudio_root_file())})
+output: 
+  html_document
+  #pdf_document
+---
+
+```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = FALSE}
+```
+
+The Olympics has the power to drive the pride in ones nation. Bringing home a medal whether it be gold, silver or bronze brings athletes a huge sense of pride. Since the competition started in ancient Greece from 8th century BC to the 4th century AD to the common Olympic games of Summer in 1896 and Winter in 1924 to the times of today. The cost of competing and sending athletes is high. This paper looks to reduce costs but still maximizing the medals obtained.
+
+I look into how the Olympics have changed with the number of sports that are on offer. I determine if the number of medals is proportionate to the number of athletes that compete or is it better to send less athletes but have them compete in multiple events to maximise the likelihood of obtaining medals
+
+And finally I look into trends regarding different sports and competitors participation looking for a competitive advantage from one sport to another.
+
+Whilst most of the analysis is done using the Summer Olympics the functions that are driving the report can and do allow analysis for Winter sports and other years over those specified within this report.
