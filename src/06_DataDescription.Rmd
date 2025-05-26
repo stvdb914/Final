@@ -7,7 +7,6 @@ knit: (function(input, encoding) {
                     knit_root_dir = rprojroot::find_rstudio_root_file())})
 output:
   pdf_document
- 
 editor_options: 
   chunk_output_type: console
 bibliography: DSAA811.bib
@@ -30,11 +29,11 @@ The "athlete_events.csv" file contains all athlete information of all the Olympi
     kable_styling(latex_options = "HOLD_position", full_width = F)
 ```
 
-The research will center around the ID, NOC, Season, Year, Sport and Medals. I am trying to work out if sending more athletes equates to more medals. If I can isolate what year there is differences in the medal tally for some countries we can pinpoint what if anything was occurring in that country at the time. This may give insight to the specific number of athletes required to send to the games to capitalize on medals.
+The research will center around the ID, NOC, Season, Year, Sport and Medals. I am trying to work out if sending more athletes equates to more medals. If I can isolate what year there are differences in the medal tally for some countries we can pinpoint, what if anything, was occurring in that country at the time. This may give insight to the specific number of athletes required to send to the games to capitalize on medals.
 
 In the athletes table there is a field called NOC which is the National Olympic City code that links to the country definitions that will allow for better groupings of data by country when linked to each other.
 
-To represent the data on a world map I needed to obtain another data set of data that contained the longitude and latitude. This data set was obtained from [@a262588213843476_2021_countries] and contained one file, "country-coord.csv". It was sourced from Github and returned to Tadas Tamošauskas who provided the data set for cleaning. The set is experimental, but provides enough information to roughly plot the Olympic data on a map. It contains six variables. The three that are needed to plot the data points are Alpha-3 code that allows you to link to the NOC codes, latitude (average), and longitude (average). With this data we can obtain an image of what countries have competed in an Olympic games as seen in Figure \@ref(fig:OlympicAll)
+To represent the data on a world map I needed to obtain another data set of data that contained the longitude and latitude. This data set was obtained from [@a262588213843476_2021_countries] and contained one file, "country-coord.csv". It was sourced from Github and returned to Tadas Tamošauskas who provided the data set for cleaning. The set is experimental, but provides enough information to roughly plot the Olympic data on a map. It contains six variables. The three that are needed to plot the data points are, Alpha-3 code that allows you to link to the NOC codes, latitude (average), and longitude (average). With this data we can obtain an image of what countries have competed in an Olympic games as seen in Figure \@ref(fig:OlympicAll)
 
 ```{r OlympicAll, fig.asp = 0.8, fig.show="hold", fig.cap="Mapping the NOC codes to longitude and latitude points on the world map", warnings = FALSE, echo = FALSE}
   drawMap("", "All Countries that have competed at an olympic games")

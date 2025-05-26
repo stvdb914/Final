@@ -20,7 +20,7 @@ header-includes:
 
 When loading in the data I have determined from the events table, the variables ID, Team, NOC, Season, Sport, and Medals are all factor variables and needed to be coded this way in R. These are the variables that the investigation is centered around.
 
-Every line in the data set represents an event. It contains all the athlete competitors if they win or not. Therefor to get quantifiable data I need to use counts to gather a lot of my numerical data. 
+Every line in the data set represents an event. It contains all the athlete competitors even if they win or not. Therefor to get quantifiable data I need to use counts to gather a lot of my numerical data. 
 
 Looking into *1) Have the events of the Olympics stayed the same? What way are they different today as apposed to the inception date?* I begin with a specific year of an Olympic games. Table \@ref(tab:SummerWinners) takes a look at the number of medals available for the inception data of the summer Olympics in 1896 as apposed to the last summer games in the data set of 2016. On the left side we can see that there are only 9 sports, and 143 medals. This is correct to the reported data mentioned in [@a2020_olympic]. On the right side we can see that in 2016 there are now a lot more sports on offer, over 30 types. Interestingly all the sports that existed in the summer games in 1896 are still being represented in the Summer Olympic Games in 2016.
 
@@ -52,7 +52,7 @@ list(winter1,winter2) %>%
 ```
 
 \newpage
-Further to knowing how many events are competed in each sport, we can get a breakdown of the medal tally as seen in Table \@ref(tab:SummerBreakDownWinners1). In this table we can see the number of Gold, Silver and Bronze medals that are awarded to each team for the Summer Olympics in 1986. We can also see how many events each team participated. Similarly we can perform the same query and compare the tables for the Olympics in 2016 for the top 30 teams in \@ref(tab:SummerBreakDownWinners2). The main difference in these two tables is that as the years progressed there are now more teams engaging in the endevour to win medals.
+Further to knowing how many events are competed, in each sport, we can get a breakdown of the medal tally as seen in Table \@ref(tab:SummerBreakDownWinners1). In this table we can see the number of Gold, Silver and Bronze medals that are awarded to each team for the Summer Olympics in 1986. We can also see how many events each team participated. Similarly we can perform the same query and compare the tables for the Olympics in 2016 for the top 30 teams in \@ref(tab:SummerBreakDownWinners2). The main difference in these two tables is that as the years progressed there are now more teams engaging in the endevour to win medals.
 
 ```{r summerBreaks, warning = FALSE, echo = FALSE}
 summer1 <- MedalBreakDownByTeam("Summer", 1896) %>% select(Team, Gold, Silver, Bronze, Events = TotalEvents, Medals = TotalMedals)
@@ -78,7 +78,7 @@ summer2 %>%
 
 Similarly, we can view the breakdown of medals per team for the Winter Olympics in 1924 in \@ref(tab:WinterBreakDownWinners1) and for the top 30 teams in the 2014 winter Olympics \@ref(tab:WinterBreakDownWinners2).
 
-On closer observations we can see that in 1896 Summer Olympics Egypt participated in 140 events and this translated to 44 medals. Of that 10 were gold, 16 were silver and 18 were bronze. Whereas in the same year Sweeden entered 5 events but did not win any medals. Seeing that there are an increasing variety of sports and events makes making a decision regarding the optimal athletes difficult to discern. Seeing the proportions of events entered as apposed to the take home medals leads me to the leads to the next question, *2) Is the number of medals obtained proportionate to the number of athletes? Can we send one athlete and have them obtain twice as many medals in events as an individual athlete? Is the number of athletes on a team proportionate to the number of medals that the team can win?*
+On closer observation we can see that in 1896 Summer Olympics Egypt participated in 140 events and this translated to 44 medals. Of that 10 were gold, 16 were silver and 18 were bronze. Whereas in the same year Sweeden entered 5 events but did not win any medals. Seeing that there are an increasing variety of sports and events makes making a decision regarding the optimal athletes difficult to discern. Seeing the proportions of events entered as apposed to the take home medals leads to the next question, *2) Is the number of medals obtained proportionate to the number of athletes? Can we send one athlete and have them obtain twice as many medals in events as an individual athlete? Is the number of athletes on a team proportionate to the number of medals that the team can win?*
 
 \newpage
 
@@ -106,7 +106,7 @@ winter2 %>%
 
 \newpage
 
-Taking a look at the Figure \@ref(fig:medalProp) alongside the Table \@ref(tab:SummerBreakDownWinners1) we can see the proportion of medals won in comparison to the number of events the team entered in. We can see that Greece has had a 7% turn around of all events entered that brought in the gold medal, whereas 69% of the time they come up empty handed. Australia brought home the gold in 50% of the events that they entered. Sweeden, Italy, Greece-3 and Greece 2 did not win any of the events that they entered. Great Britain/Germany won the gold medal in every event entered. Figure \@ref(fig:medalProp1) staggers the bar chart and neither of these graphs are easy to read. Both, however highlight a quick reference showing that the more events participated in does not lead to more medals.
+Taking a look at the Figure \@ref(fig:medalProp) alongside Table \@ref(tab:SummerBreakDownWinners1) we can see the proportion of medals won in comparison to the number of events the team entered in. We can see that Greece has had a 7% turn around of all events entered that brought in the gold medal, whereas 69% of the time they come up empty handed. Australia brought home the gold in 50% of the events that they entered. Sweeden, Italy, Greece-3 and Greece 2 did not win any of the events that they entered. Great Britain/Germany won the gold medal in every event entered. Figure \@ref(fig:medalProp1) staggers the bar chart and neither of these graphs are easy to read. Both, however highlight a quick reference showing that the more events participated in does not lead to more medals.
 
 ```{r medalProp, fig.width = 10, fig.label = "propTWinners", fig.cap= "Proportion of medals in relation to the events entered by teams in the Summer 1896 Olympics", warning = FALSE, echo = FALSE}
   
@@ -134,7 +134,7 @@ The problem I am facing with these proportions is that there is no information r
   
 ```
 
-Sticking to the the Summer Olympics in 1896. Table \@ref(tab:SummerBreakDownWinners3) tells us the number of athletes that were sent by each team. Greecce sent 101 athletes, whereas Sweeden, Australia, and Italy sent only 1 person. Germany sent 19 athletes, however they recieved 24 gold medals, more than those members on the team. Visually using Figure \@ref(fig:medalPropAth), it is easy to see that Sweeden had a 500% sucess rate of winning no medals. In other terms, there were 5 events that were entered where no-one on the team won. Australia had a 200% success rate meaning that every athlete on the team brought home 2 gold medals. Removing the numbers from the bars and comparing these figures with that of \@ref(tab:SummerBreakDownWinners3) we can see very similar trends. There is no evidence to suggest sending less athletes brings home any more or any less medals.
+Sticking to the the Summer Olympics in 1896. Table \@ref(tab:SummerBreakDownWinners3) tells us the number of athletes that were sent by each team. Greece sent 101 athletes, whereas Sweden, Australia, and Italy sent only 1 person. Germany sent 19 athletes, however they received 24 gold medals, more than those members on the team. Visually using Figure \@ref(fig:medalPropAth), it is easy to see that Sweden had a 500% success rate of winning no medals. In other terms, there were 5 events that were entered where no-one on the team won. Australia had a 200% success rate meaning that every athlete on the team brought home 2 gold medals. Removing the numbers from the bars and comparing these figures with that of \@ref(tab:SummerBreakDownWinners3) we can see very similar trends. There is no evidence to suggest sending less athletes brings home any more or any less medals.
 
 ```{r summerBreaksrevisit, warning = FALSE, echo = FALSE}
 summer1 <- left_join(MedalBreakDownByTeam("Summer", 1896), 

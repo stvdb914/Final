@@ -14,7 +14,7 @@ output:
 ```
 
 
-With most of the data from all the Olympic data since its inception. The main questions we need to ask is 
+With most of the data from all the Olympic data set since its inception, the main questions we need to ask are 
 
 *1) Have the events of the Olympics stayed the same? What way are they different today as apposed to the inception date?*
 

@@ -13,7 +13,7 @@ output:
 ```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = FALSE}
 ```
 
-Since the inception of the Olympic games in 1896 humans have been on a pursuit to push their minds bodies and souls to become the best of the best. They inspire the next generation to have pride not only in themselves but in their Country. 
+Since the inception of the Olympic games in 1896 humans have been on a pursuit to push their minds, bodies and souls to become the best of the best. They inspire the next generation to have pride, not only in themselves but in their Country. 
 
 In its inception there were a small subset of sports that the competition would occur and these can be found on the left side of Table \@ref(tab:SummerWinners). Over the years the competition occurred every four years with more nations appearing and a more diverse range of sports being included. With that there are more opportunities for athletes to compete for the glory of a medal.
 
