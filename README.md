@@ -17,13 +17,13 @@ Once all the files are knitted into a pdf file the report will be located in the
 This goes for individually compiling each part. To make each section run independantly
 you need to change the line in each code set
 
-```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = FALSE}
-```
+####```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = FALSE}
+####```
 
 to be 
 
-```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = TRUE}
-```
+####```{r child = 'src/00_loader.Rmd', Include = TRUE, eval = TRUE}
+####```
 
 This needs to be changed back to the first one to complete the compile of the 
 entire report.
